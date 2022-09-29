@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 @Component
@@ -23,8 +24,12 @@ public class BookService {
     }
 
     public Book getBookById(int id){
-        Book book1 = list.stream().filter(book -> book.getId()==id).findFirst().get();
-
+        Book book1 = null;
+        try {
+            book1= list.stream().filter(book -> book.getId()==id).findFirst().get();
+        }catch (Exception e){
+            System.out.println(e);
+        }
         return book1;
     }
 
@@ -45,16 +50,18 @@ public class BookService {
     }
 
 //update the book
-    public Book updateBook(Book book, int id){
-        list = list.stream().map(b ->{
-            if(b.getId() == id){
+    public Book updateBook(Book book, int id) throws ClassNotFoundException {
+
+        list.stream().map(b ->{
+           if (b.getId() == id){
                b.setTitle(book.getTitle());
                b.setAuthor(book.getAuthor());
-            }
-           return b;
-        }).collect(Collectors.toList());
+           }
+            return b;
+        });
 
         return book;
+
     }
 
 
