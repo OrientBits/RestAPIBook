@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class BookService {
@@ -38,6 +39,24 @@ public class BookService {
         System.out.println("successfully deleted");
         return book;
     }
+    public void deleteBook2(int id){
+        list = list.stream().filter(book -> book.getId()!=id).collect(Collectors.toList());
+        System.out.println(list);
+    }
+
+//update the book
+    public Book updateBook(Book book, int id){
+        list = list.stream().map(b ->{
+            if(b.getId() == id){
+               b.setTitle(book.getTitle());
+               b.setAuthor(book.getAuthor());
+            }
+           return b;
+        }).collect(Collectors.toList());
+
+        return book;
+    }
+
 
 
 }

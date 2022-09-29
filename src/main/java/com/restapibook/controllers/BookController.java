@@ -25,7 +25,7 @@ public class BookController {
         return bookService.getBookById(id);
     }
 
-    //add books handler
+    // add books handler
     @PostMapping("/books")
     public Book addBook(@RequestBody Book book){
         return this.bookService.addBook(book);
@@ -35,6 +35,11 @@ public class BookController {
     @DeleteMapping("/books/{id}")
     public Book deleteBook(@PathVariable("id") int id){
         return this.bookService.deleteBook(id);
+    }
+
+    @PutMapping("/books/{id}")
+    public Book updateBook(@RequestBody Book book, @PathVariable("id") int id){
+        return this.bookService.updateBook(book,id);
     }
 
 
