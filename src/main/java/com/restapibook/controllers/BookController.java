@@ -31,7 +31,11 @@ public class BookController {
         return this.bookService.addBook(book);
     }
 
-
+    // delete book handler
+    @DeleteMapping("/books/{id}")
+    public Book deleteBook(@PathVariable("id") int id){
+        return this.bookService.deleteBook(id);
+    }
 
 
 

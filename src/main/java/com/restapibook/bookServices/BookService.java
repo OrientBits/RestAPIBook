@@ -32,6 +32,12 @@ public class BookService {
         return book;
     }
 
+    public Book deleteBook(int id){
+        Book book = list.stream().filter(b -> b.getId() == id).findFirst().get();
+        list.remove(book);
+        System.out.println("successfully deleted");
+        return book;
+    }
 
 
 }
