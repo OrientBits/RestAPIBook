@@ -2,10 +2,8 @@ package com.restapibook.bookServices;
 
 import com.restapibook.entities.Book;
 import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 @Component
@@ -50,17 +48,19 @@ public class BookService {
     }
 
 //update the book
-    public Book updateBook(Book book, int id) throws ClassNotFoundException {
+    public List<Book> updateBook(Book book, int id) {
 
-        list.stream().map(b ->{
+        list = list.stream().map(b ->{
            if (b.getId() == id){
                b.setTitle(book.getTitle());
                b.setAuthor(book.getAuthor());
+
            }
             return b;
-        });
+        }).collect(Collectors.toList());
 
-        return book;
+        System.out.println("Successfully updated");
+        return list;
 
     }
 

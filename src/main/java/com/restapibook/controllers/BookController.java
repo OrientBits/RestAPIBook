@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +23,7 @@ public class BookController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         return ResponseEntity.of(Optional.of(list));
     }
+
     // get a books handler
     @GetMapping("/books/{id}")
     public ResponseEntity<Book> getBook(@PathVariable("id") int id){
@@ -32,7 +32,6 @@ public class BookController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         return ResponseEntity.of(Optional.of(book));
     }
-
 
     // add books handler
     @PostMapping("/books")
@@ -46,12 +45,11 @@ public class BookController {
         }
     }
 
-
     // delete book handler
     @DeleteMapping("/books/{id}")
-    public ResponseEntity<Book> deleteBook(@PathVariable("id") int id){
+    public ResponseEntity<Book> deleteBook(@PathVariable("id") int bookId){
         try {
-            Book book =this.bookService.deleteBook(id);
+            Book book =this.bookService.deleteBook(bookId);
             return ResponseEntity.of(Optional.of(book));
         }catch (Exception e){
             e.printStackTrace();
@@ -59,13 +57,12 @@ public class BookController {
         }
     }
 
-
+    //update or modify data
     @PutMapping("/books/{id}")
-    public ResponseEntity<Book> updateBook(@RequestBody Book book, @PathVariable("id") int id){
+    public ResponseEntity<List<Book>> updateBook(@RequestBody Book book, @PathVariable("id") int id){
         try {
-            Book book1 =this.bookService.updateBook(book, id);
-            // return ResponseEntity.ok().body(book1);
-            return ResponseEntity.of(Optional.of(book1));
+            List<Book> books =this.bookService.updateBook(book, id);
+            return ResponseEntity.of(Optional.of(books));
         }catch (Exception e){
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
