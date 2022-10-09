@@ -8,6 +8,7 @@ public class RestApiBookApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(RestApiBookApplication.class, args);
+
     }
 
 }
